@@ -1,0 +1,47 @@
+.app {
+    padding: 0 16px;
+}
+.pageInfo {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pagination {
+  display: flex;
+  justify-content: center; /* по центру */
+  align-items: center;     /* вирівняти по вертикалі */
+  gap: 10px;               /* відстань між кнопками */
+  margin: 16px 0;          /* відступ зверху і знизу */
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  display: inline-block;
+}
+
+.pagination a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #0a66c2;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.active a {
+  background-color: #0a66c2;
+  color: #fff;
+}
