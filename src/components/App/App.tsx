@@ -7,7 +7,8 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import MovieModal from '../MovieModal/MovieModal';
 import ReactPaginate from 'react-paginate';
 import styles from './App.module.css';
-import type { Movie, MovieResponse } from '../../types/movie';
+import type { Movie } from '../../types/movie';
+import type { MovieResponse } from '../../services/movieService.types';
 import { fetchMovies } from '../../services/movieService';
 import { Toaster, toast } from 'react-hot-toast';
 
@@ -21,7 +22,7 @@ const App: React.FC = () => {
   queryKey: ['movies', query, page],
   queryFn: () => fetchMovies({ query, page }),
   enabled: query.trim().length > 0,
-  placeholderData: (prev) => prev, 
+  placeholderData: (prev: MovieResponse | undefined) => prev,
 });
 
 
@@ -84,9 +85,7 @@ const App: React.FC = () => {
   <MovieModal
     movie={selected}
     onClose={handleCloseModal}
-    currentPage={page}
-    totalPages={totalPages}
-    onChangePage={(newPage) => setPage(newPage)}
+    
   />
 )}
       <Toaster position="top-right" />
