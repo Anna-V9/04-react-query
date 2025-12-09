@@ -4,26 +4,18 @@ import type { Movie } from '../../types/movie';
 import css from './MovieModal.module.css';
 
 interface MovieModalProps {
-  movie: Movie | null;
+  movie: Movie;         // movie більше не може бути null
   onClose: () => void;
-  currentPage: number;
-  totalPages: number;
-  onChangePage: (page: number) => void;
 }
 
 const modalRoot = document.getElementById('modal-root') || document.body;
 
-const MovieModal: React.FC<MovieModalProps> = ({
-  movie,
-  onClose,
-  currentPage,
-  totalPages,
-  onChangePage
-}) => {
+const MovieModal: React.FC<MovieModalProps> = ({ movie, onClose }) => {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
+
     document.addEventListener('keydown', handleKey);
 
     const prevOverflow = document.body.style.overflow;
@@ -34,8 +26,6 @@ const MovieModal: React.FC<MovieModalProps> = ({
       document.body.style.overflow = prevOverflow;
     };
   }, [onClose]);
-
-  if (!movie) return null;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose();
@@ -59,28 +49,13 @@ const MovieModal: React.FC<MovieModalProps> = ({
         <div className={css.content}>
           <h2>{movie.title}</h2>
           <p>{movie.overview}</p>
-          <p><strong>Release Date:</strong> {movie.release_date || '—'}</p>
-          <p><strong>Rating:</strong> {movie.vote_average}/10</p>
+          <p>
+            <strong>Release Date:</strong> {movie.release_date || '—'}
+          </p>
+          <p>
+            <strong>Rating:</strong> {movie.vote_average}/10
+          </p>
         </div>
-
-        {/* PAGINATION */}
-        {totalPages > 1 && (
-          <div className={css.pagination}>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => onChangePage(currentPage - 1)}
-            >
-              Prev
-            </button>
-            <span>{currentPage} / {totalPages}</span>
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => onChangePage(currentPage + 1)}
-            >
-              Next
-            </button>
-          </div>
-        )}
       </div>
     </div>,
     modalRoot
